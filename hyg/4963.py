@@ -11,51 +11,44 @@ import sys
 from collections import deque
 
 input = sys.stdin.readline
-matrix = []
-queue = deque()
 
 dx = [0,-1,-1,-1,0,1,1,1]
 dy = [1,1,0,-1,-1,-1,0,1]
 
-if __name__ == '__main__':
-
-    w, h = map(int, input().split())
-
-    for i in range(h):
-        matrix.append(list(map(int, input().split())))
+def bfs(x, y):
+    queue = deque([(x,y)])
+    visited[x][y] = True
     
-    for i in range(h):
-        for j in range(w):
-            if matrix[i][j]==1:
-                queue.append((i,j))
-
-    visited = [[False]*w for _ in range(h)]
-    land = 0
     while queue:
-        x,y = queue.popleft()
-        visited[x][y] = True
+        cx, cy = queue.popleft()
 
         for i in range(8):
-            nx = x + dx[i]
-            ny = y + dy[i]
+            nx = cx + dx[i]
+            ny = cy + dy[i]
 
             if 0 <= nx < h and 0 <= ny < w and not visited[nx][ny] and matrix[nx][ny]==1:
                 queue.append((nx,ny))
-                visited[nx][ny] = True
-                
-                flag = False
-                for i in range(8):
-                    nnx = nx + dx[i]
-                    nny = ny + dy[i]
+                visited[nx][ny] = True 
 
-                    if 0 <= nnx < h and 0 <= nny <w and not visited[nnx][nny] and matrix[nnx][nny]==0:
-                        flag = True
-                
-                if flag:
-                    land += 1
+
+if __name__ == '__main__':
+    while True:
+        w, h = map(int, input().split())
+
+        if w == 0 and h == 0:
+            break
+
+        matrix = []
+        
+        for i in range(h):
+            matrix.append(list(map(int, input().split())))
+        visited = [[False]*w for _ in range(h)]
+
+        land = 0
     
-    print(land)
-
-
-
-
+        for i in range(h):
+            for j in range(w):
+                if matrix[i][j]==1 and not visited[i][j]:
+                    bfs(i,j)
+                    land += 1
+        print(land)
