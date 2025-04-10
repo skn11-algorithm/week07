@@ -17,12 +17,17 @@ sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
-def dfs(v, graph, visited):
+def bfs(v, graph, visited):
+    queue = deque([v])
     visited[v] = True
 
-    for i in graph[v]:
-        if not visited[i]:
-            dfs(i, graph, visited)
+    while queue:
+        v = queue.popleft()
+
+        for i in graph[v]:
+            if not visited[i]:
+                visited[i] = True
+                queue.append(i)
 
 if __name__ == '__main__':
     n,m = map(int, input().split())
@@ -37,6 +42,6 @@ if __name__ == '__main__':
     visited = [False]*(n+1)
     for i in range(1, n+1):
         if not visited[i]:  
-            dfs(i, graph, visited)
+            bfs(i, graph, visited)
             count += 1
     print(count)
