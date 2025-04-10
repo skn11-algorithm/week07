@@ -13,6 +13,7 @@
 
 import sys
 from collections import deque
+sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
@@ -25,7 +26,7 @@ def dfs(v, graph, visited):
 
 if __name__ == '__main__':
     n,m = map(int, input().split())
-    graph = [[0]*n for _ in range(n+1)]
+    graph = [[]*n for _ in range(n+1)]
 
     for i in range(m):
         u, v = map(int, input().split())
