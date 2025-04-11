@@ -36,8 +36,6 @@ if __name__=='__main__':
     for i in range(n):
         matrix.append(list(map(int, input().strip())))
     
-    print(matrix[0][0])
-    
     visited = [[False]*n for _ in range(n)]
 
     for i in range(0, n):
