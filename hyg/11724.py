@@ -3,7 +3,7 @@
 # 출력: 연결 요소의 개수
 
 # 풀이 과정
-# bfs 사용? 하면 될 거 같은데 나는 못함
+# bfs 사용? 하면 될 거 같은데
 # 이중 리스트로 저장 후 dfs -> 깊게 들어가면서 count 하나씩 증가
 # 1 2 5
 # 2 5
@@ -29,6 +29,13 @@ def bfs(v, graph, visited):
                 visited[i] = True
                 queue.append(i)
 
+def dfs(v, graph, visited):
+    visited[v] = True
+    
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(i, graph, visited)
+
 if __name__ == '__main__':
     n,m = map(int, input().split())
     graph = [[]*n for _ in range(n+1)]
@@ -42,6 +49,7 @@ if __name__ == '__main__':
     visited = [False]*(n+1)
     for i in range(1, n+1):
         if not visited[i]:  
-            bfs(i, graph, visited)
+            # bfs(i, graph, visited)
+            dfs(i, graph, visited)
             count += 1
     print(count)
